@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uddami Youth Network Bangladesh - Complain Box</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <img src="logo.png" alt="UYNBD Logo" class="logo" />
+    <h1>Uddami Youth Network Bangladesh</h1>
+    <h2>Anonymous Complaint Box</h2>
+
+    <form id="complaintForm">
+      <label>Complaint Category</label>
+      <select id="category" required>
+        <option value="">Select one</option>
+        <option>Management</option>
+        <option>Cleanliness</option>
+        <option>Events</option>
+        <option>Equipment</option>
+        <option>Other</option>
+      </select>
+
+      <label>Complaint Details</label>
+      <textarea id="message" placeholder="Write your complaint here..." required></textarea>
+
+      <button type="submit">Submit Complaint</button>
+    </form>
+
+    <p id="responseMsg"></p>
+  </div>
+
+  <script>
+    // ---- Replace this with your own Google Apps Script Web App URL ----
+    const scriptURL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
+
+    const form = document.getElementById('complaintForm');
+    const responseMsg = document.getElementById('responseMsg');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      responseMsg.textContent = "Submitting...";
+      fetch(scriptURL, {
+        method: 'POST',
+        body: new FormData(form)
+      })
+      .then(() => {
+        responseMsg.textContent = "✅ Complaint submitted anonymously. Thank you!";
+        form.reset();
+      })
+      .catch(err => {
+        console.error(err);
+        responseMsg.textContent = "❌ Something went wrong. Try again later.";
+      });
+    });
+  </script>
+</body>
+</html>
