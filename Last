@@ -1,0 +1,6 @@
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = e.parameter;
+  sheet.appendRow([new Date(), data.category, data.message]);
+  return ContentService.createTextOutput("Success");
+}
